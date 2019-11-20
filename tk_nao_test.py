@@ -15,13 +15,25 @@ def moveHead(type, direction):
 
     #left or right
     if type == "HeadYaw":
-        angleLists = [[0.1, 0.5]]
+        if direction == "left":
+            angleLists = [[0.5, 0.5]]
+        if direction == "right":
+            angleLists = [[-0.5, -0.5]]
+
         timeLists = [[1.0, 2.0]]
         isAbsolute  = True
         motionProxy.angleInterpolation(["HeadYaw"], angleLists, timeLists, isAbsolute)
     #up or down 
-    # if type == "HeadPitch":
-    #     break
+    if type == "HeadPitch":
+        if direction == "up":
+            angleLists = [[-0.2, -0.2]]
+        # if direction == "right":
+        #     angleLists = [[-0.5, -0.5]]
+
+        timeLists = [[1.0, 2.0]]
+        isAbsolute  = True
+        motionProxy.angleInterpolation(["HeadPitch"], angleLists, timeLists, isAbsolute)
+
 
 root = tk.Tk()
 root.geometry("500x500")
@@ -38,13 +50,17 @@ slogan.pack(side=tk.LEFT)
 
 def leftKey(event):
     print "Left key pressed"
-    moveHead("HeadYaw", "bla")
+    moveHead("HeadYaw", "left")
 
 def rightKey(event):
     print "Right key pressed"
+    moveHead("HeadYaw", "right")
+
 
 def upKey(event):
     print "Up key pressed"
+    moveHead("HeadPitch", "up")
+
 
 def downKey(event):
     print "Down key pressed"
