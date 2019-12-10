@@ -2,10 +2,12 @@ import Tkinter  as tk
 from naoqi import ALProxy    
 from sys import exit
 import qi
+import time
+from GazeFollowInteraction import GazeFollowInteraction
 
-def fun():
-	tts = ALProxy("ALTextToSpeech", "169.254.124.254", 9559)
-	tts.say("Hi, Sho!")
+# def fun():
+	# tts = ALProxy("ALTextToSpeech", "169.254.124.254", 9559)
+	# tts.say("Hi, Sho!")
 	
 
 def quit():
@@ -22,7 +24,7 @@ def eye_color():
     intensity = 0.5
     duration = 2.0
     leds_service.fadeRGB(name, "green", duration)
-    leds_service.rasta(4)
+    leds_service.rasta(1)
 
 def moveHead(type, direction):
     motionProxy = ALProxy("ALMotion", "169.254.124.254", 9559)
@@ -58,11 +60,33 @@ def make_sound():
     tts.say("Ow!")
 
 
+
+gazeFollowInteration = GazeFollowInteraction()
 def gaze_follow():
-    #to do 
-    #total gaze follows: 3 right, 3 left, select randomly 
+    next_move = gazeFollowInteration.get_next_move()
+    if next_move == GazeFollowInteraction.LEFT_HEAD_MOVE:
+        moveHead("HeadYaw", "left")
+    elif next_move == GazeFollowInteraction.RIGHT_HEAD_MOVE:
+        moveHead("HeadYaw", "right")
     return
 
+
+def dance():
+
+    aup = ALProxy("ALAudioPlayer", "169.254.124.254", 9559)
+    fileId = aup.loadFile("/home/sara/repos/testing_nao/file_example_WAV_1MG.wav")
+    time.sleep(5)
+    aup.play(fileId)
+
+def hand_wave():
+    # session = qi.Session()
+    # session.connect("tcp://169.254.124.254:9559")
+    # animation_player_service = session.service("ALAnimationPlayer")
+
+
+    tts = ALProxy("ALAnimationPlayer", "169.254.124.254", 9559)
+    tts.run("animations/Stand/Gestures/Hey_1!")
+    # animation_player_service.run("animations/Stand/Gestures/Hey_1")
 
 root = tk.Tk()
 root.geometry("500x500")
@@ -73,8 +97,8 @@ frame.pack()
 
 button = tk.Button(frame, text="QUIT", fg="red", command=quit)
 button.pack(side=tk.LEFT)
-slogan = tk.Button(frame, text="Hello", command=fun)
-slogan.pack(side=tk.LEFT)
+# slogan = tk.Button(frame, text="Hello", command=fun)
+# slogan.pack(side=tk.LEFT)
 eye_button = tk.Button(frame, text="Eyes", fg="red", command=eye_color)
 eye_button.pack(side=tk.LEFT)
 
@@ -83,6 +107,12 @@ sound_button.pack(side=tk.LEFT)
 
 gaze_following_button = tk.Button(frame, text="Gaze Follow", fg="blue", command=gaze_follow)
 gaze_following_button.pack(side=tk.LEFT)
+
+play_dance_button = tk.Button(frame, text="Dance", fg="blue", command=dance)
+play_dance_button.pack(side=tk.LEFT)
+
+wave_hand_button = tk.Button(frame, text="Wave hand", fg="blue", command=hand_wave)
+wave_hand_button.pack(side=tk.LEFT)
 
 
 def leftKey(event):
@@ -93,18 +123,13 @@ def rightKey(event):
     print "Right key pressed"
     moveHead("HeadYaw", "right")
 
-
 def upKey(event):
     print "Up key pressed"
     moveHead("HeadPitch", "up")
 
-
 def downKey(event):
     print "Down key pressed"
     moveHead("HeadPitch", "down")
-
-    # tts = ALProxy("ALTextToSpeech", "169.254.124.254", 9559)
-    # tts.say("Bye, Sho!")
 
 root.bind('<Left>', leftKey)
 root.bind('<Right>', rightKey)
@@ -112,5 +137,4 @@ root.bind('<Up>', upKey)
 root.bind('<Down>', downKey)
 
 
-print("here")
 root.mainloop()
