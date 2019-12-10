@@ -2,7 +2,8 @@
 #!/usr/bin/env python
 from naoqi       import ALProxy
 
-NAO_IP = "169.254.124.254"
+NAO_IP =  "169.254.186.86"
+
 PORT = 9559
 
 # Proxy for Motion

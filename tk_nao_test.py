@@ -4,27 +4,33 @@ from sys import exit
 import qi
 import time
 from GazeFollowInteraction import GazeFollowInteraction
+from hand_wave import hand_wave
+from gangam_style import gangam_style_position, gangam_style_dance
+from stand_position import stand_position
 
 # def fun():
 	# tts = ALProxy("ALTextToSpeech", "169.254.124.254", 9559)
 	# tts.say("Hi, Sho!")
 	
-
+IP_ADDRESS = "169.254.186.86"
 def quit():
     global root
     root.quit()
 
+
 def eye_color():
     session = qi.Session()
-    session.connect("tcp://169.254.124.254:9559")
+    session.connect("tcp://" + IP_ADDRESS + ":9559")
     leds_service = session.service("ALLeds")
 
     # Example showing how to fade the eyes to green 
+    stand_position()
     name = 'FaceLeds'
     intensity = 0.5
     duration = 2.0
     leds_service.fadeRGB(name, "green", duration)
     leds_service.rasta(1)
+
 
 def moveHead(type, direction):
     motionProxy = ALProxy("ALMotion", "169.254.124.254", 9559)
@@ -45,10 +51,7 @@ def moveHead(type, direction):
             angleLists = [[-0.2, -0.2]]
         if direction == "down":
             angleLists = [[0.5, 0.5]]
-
-        # if direction == "right":
-        #     angleLists = [[-0.5, -0.5]]
-
+            
         timeLists = [[1.0, 2.0]]
         isAbsolute  = True
         motionProxy.angleInterpolation(["HeadPitch"], angleLists, timeLists, isAbsolute)
@@ -56,7 +59,8 @@ def moveHead(type, direction):
 
 def make_sound():
     #to do 
-    tts = ALProxy("ALTextToSpeech", "169.254.124.254", 9559)
+    stand_position()
+    tts = ALProxy("ALTextToSpeech", IP_ADDRESS, 9559)
     tts.say("Ow!")
 
 
@@ -72,26 +76,27 @@ def gaze_follow():
 
 
 def dance():
-
-    aup = ALProxy("ALAudioPlayer", "169.254.124.254", 9559)
-    fileId = aup.loadFile("/home/sara/repos/testing_nao/file_example_WAV_1MG.wav")
-    time.sleep(5)
-    aup.play(fileId)
-
-def hand_wave():
-    # session = qi.Session()
-    # session.connect("tcp://169.254.124.254:9559")
-    # animation_player_service = session.service("ALAnimationPlayer")
+    stand_position()
+    managerProxy = ALProxy("ALBehaviorManager", IP_ADDRESS, 9559)
+    managerProxy.runBehavior("gangnamstyle1234-91e48b/GangnamStyle")
 
 
-    tts = ALProxy("ALAnimationPlayer", "169.254.124.254", 9559)
-    tts.run("animations/Stand/Gestures/Hey_1!")
-    # animation_player_service.run("animations/Stand/Gestures/Hey_1")
+    # aup = ALProxy("ALAudioPlayer", "169.254.124.254", 9559)
+    # fileId = aup.loadFile("/home/sara/repos/testing_nao/file_example_WAV_1MG.wav")
+    # time.sleep(5)
+    # aup.play(fileId)
+
+def hand_wave_func():
+    stand_position()
+    hand_wave()
+    # tts = ALProxy("ALAnimationPlayer", IP_ADDRESS, 9559)
+    # tts.run("animations/Stand/Gestures/Hey_1!")
 
 root = tk.Tk()
 root.geometry("500x500")
 frame = tk.Frame(root)
 frame.pack()
+root.protocol('WM_DELETE_WINDOW', root.quit())
 
 
 
@@ -111,7 +116,7 @@ gaze_following_button.pack(side=tk.LEFT)
 play_dance_button = tk.Button(frame, text="Dance", fg="blue", command=dance)
 play_dance_button.pack(side=tk.LEFT)
 
-wave_hand_button = tk.Button(frame, text="Wave hand", fg="blue", command=hand_wave)
+wave_hand_button = tk.Button(frame, text="Wave hand", fg="blue", command=hand_wave_func)
 wave_hand_button.pack(side=tk.LEFT)
 
 
@@ -138,3 +143,14 @@ root.bind('<Down>', downKey)
 
 
 root.mainloop()
+
+def get_behaviours():
+    alBehaviorManagerProxy = ALProxy("ALBehaviorManager", IP_ADDRESS, 9559)
+    names = alBehaviorManagerProxy.getInstalledBehaviors()
+    print "Behaviours installed on the robot:"
+    print names
+    
+    print ("\n Behaviours running on the robot")
+    allItems = alBehaviorManagerProxy.getRunningBehaviors()
+    for i in allItems:
+        print i
