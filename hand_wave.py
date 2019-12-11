@@ -1,5 +1,6 @@
 # Choregraphe simplified export in Python.
 from naoqi import ALProxy
+from settings import IP_ADDRESS
 def hand_wave():
     names = list()
     times = list()
@@ -62,7 +63,7 @@ def hand_wave():
 
     try:
     # uncomment the following line and modify the IP if you use this script outside Choregraphe.
-        motion = ALProxy("ALMotion", "169.254.186.86", 9559)
+        motion = ALProxy("ALMotion", IP_ADDRESS, 9559)
     # motion = ALProxy("ALMotion")
         motion.angleInterpolation(names, keys, times, True)
     except BaseException, err:
