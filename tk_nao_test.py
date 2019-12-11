@@ -4,17 +4,27 @@ from sys import exit
 import qi
 import time
 from settings import IP_ADDRESS
-
+from blink import blink 
+import random 
 
 from GazeFollowInteraction import GazeFollowInteraction
 from hand_wave import hand_wave
 from gangam_style import gangam_style_position, gangam_style_dance
 from stand_position import stand_position
+from sounds import sound_1, sound_2, sound_3
 
 # def fun():
 	# tts = ALProxy("ALTextToSpeech", "169.254.124.254", 9559)
 	# tts.say("Hi, Sho!")
-	
+
+alBehaviorManagerProxy = ALProxy("ALBasicAwareness", IP_ADDRESS, 9559)
+alBehaviorManagerProxy.stopAwareness()	
+
+
+
+# AutonomousBlinking = ALProxy("ALAutonomousBlinking", IP_ADDRESS, 9559)
+# AutonomousBlinking.setEnabled()
+
 def quit():
     global root
     root.quit()
@@ -28,10 +38,10 @@ def eye_color():
     # Example showing how to fade the eyes to green 
     stand_position()
     name = 'FaceLeds'
-    intensity = 0.5
-    duration = 2.0
-    leds_service.fadeRGB(name, "green", duration)
-    leds_service.rasta(1)
+    # intensity = 0.5
+    # duration = 2.0
+    # leds_service.fadeRGB(name, "green", duration)
+    leds_service.rasta(2)
 
 
 def moveHead(type, direction, angle, time_end):
@@ -61,34 +71,93 @@ def moveHead(type, direction, angle, time_end):
 def make_sound():
     #to do 
     stand_position()
-    tts = ALProxy("ALTextToSpeech", IP_ADDRESS, 9559)
-    tts.say("Ow!")
+    x = random.choice([0, 1, 2])
+    print("x is " + str(x))
+    if x == 0:
+        return sound_1()
+    if x == 1: 
+        return sound_2()
+    if x == 2:
+        return sound_3()
+    # leds_service = ALProxy("ALLeds", IP_ADDRESS, 9559)
+    # leds_service.rasta(1)
 
-    leds_service = ALProxy("ALLeds", IP_ADDRESS, 9559)
-    leds_service.rasta(1)
+def move_head_diagonal(angle_up_down, angle_left_right):
+
+    changeAngles("HeadPitch", angle_up_down)
+    changeAngles("HeadYaw", angle_left_right)
+    changeAngles("HeadPitch", angle_up_down)
+    changeAngles("HeadYaw", angle_left_right)
+    changeAngles("HeadPitch", angle_up_down)
+    changeAngles("HeadYaw", angle_left_right)
+    changeAngles("HeadPitch", angle_up_down)
+    changeAngles("HeadYaw", angle_left_right)
+    changeAngles("HeadPitch", angle_up_down)
+    changeAngles("HeadYaw", angle_left_right)
+    changeAngles("HeadPitch", angle_up_down)
+    changeAngles("HeadYaw", angle_left_right)
+    changeAngles("HeadPitch", angle_up_down)
+    changeAngles("HeadYaw", angle_left_right)
+    changeAngles("HeadPitch", angle_up_down)
+    changeAngles("HeadYaw", angle_left_right)
+    changeAngles("HeadPitch", angle_up_down)
+    changeAngles("HeadYaw", angle_left_right)
+    changeAngles("HeadPitch", angle_up_down)
+    changeAngles("HeadYaw", angle_left_right)
+    changeAngles("HeadPitch", angle_up_down)
+    changeAngles("HeadYaw", angle_left_right)
+    changeAngles("HeadPitch", angle_up_down)
+    changeAngles("HeadYaw", angle_left_right)
+    changeAngles("HeadPitch", angle_up_down)
+    changeAngles("HeadYaw", angle_left_right)
+    changeAngles("HeadPitch", angle_up_down)
+    changeAngles("HeadYaw", angle_left_right)
+    changeAngles("HeadPitch", angle_up_down)
+    changeAngles("HeadYaw", angle_left_right)
+    changeAngles("HeadPitch", angle_up_down)
+    changeAngles("HeadYaw", angle_left_right)
+    changeAngles("HeadPitch", angle_up_down)
+    changeAngles("HeadYaw", angle_left_right)
+    changeAngles("HeadPitch", angle_up_down)
+    changeAngles("HeadYaw", angle_left_right)
+    changeAngles("HeadPitch", angle_up_down)
+    changeAngles("HeadYaw", angle_left_right)
+    changeAngles("HeadPitch", angle_up_down)
+    changeAngles("HeadYaw", angle_left_right)
+    changeAngles("HeadPitch", angle_up_down)
+    changeAngles("HeadYaw", angle_left_right)
+    changeAngles("HeadPitch", angle_up_down)
+
+
 
 
 gazeFollowInteration = GazeFollowInteraction()
 def gaze_follow():
     stand_position()
+
+    angle = 0.04
+
     next_move = gazeFollowInteration.get_next_move()
     if next_move == GazeFollowInteraction.LEFT_HEAD_MOVE:
-        moveHead("HeadYaw", "left", 0.7, 4)
+        move_head_diagonal(0.04, 0.04)
+        # moveHead("HeadYaw", "left", 0.1, 1)
     elif next_move == GazeFollowInteraction.RIGHT_HEAD_MOVE:
-        moveHead("HeadYaw", "right", 0.7, 4)
+        move_head_diagonal(0.04, -0.04)
+     
+    time.sleep(4)
+    stand_position()
+
     return
 
 
 def dance():
     stand_position()
     managerProxy = ALProxy("ALBehaviorManager", IP_ADDRESS, 9559)
-    managerProxy.runBehavior("gangnamstyle1234-91e48b/GangnamStyle")
+    # managerProxy.runBehavior("gangnamstyle1234-91e48b/GangnamStyle")
+    managerProxy.runBehavior('gangnamstyle4-9610b3/GangnamStyle')
+    
 
-
-    # aup = ALProxy("ALAudioPlayer", "169.254.124.254", 9559)
-    # fileId = aup.loadFile("/home/sara/repos/testing_nao/file_example_WAV_1MG.wav")
     # time.sleep(5)
-    # aup.play(fileId)
 
 def hand_wave_func():
     stand_position()
@@ -97,19 +166,30 @@ def hand_wave_func():
     # tts = ALProxy("ALAnimationPlayer", IP_ADDRESS, 9559)
     # tts.run("animations/Stand/Gestures/Hey_1!")
 
+def you_func():
+    stand_position()
+    managerProxy = ALProxy("ALBehaviorManager", IP_ADDRESS, 9559)
+    managerProxy.runBehavior("animations/Stand/Gestures/You_4")
+
 
 def changeAngles(name, add_angle):
-    print("in change angles")
     motionProxy = ALProxy("ALMotion", IP_ADDRESS, 9559)
-
     useSensors    = True
     commandAngle = motionProxy.getAngles(name, useSensors)
     
     new_pos = [commandAngle[0] + add_angle]
     motionProxy.angleInterpolationWithSpeed([name], new_pos, 0.1)
-
-    # motionProxy.setAngles(name, new_pos, 0.1)
     # motionProxy.setStiffnesses("Body", 1.0)
+
+def random_reaction():
+    x = random.choice([0, 1, 2])
+    print("x is " + str(x))
+    if x == 0:
+        return hand_wave_func()
+    if x == 1: 
+        return eye_color()
+    if x == 2: 
+        return you_func()
 
 
 root = tk.Tk()
@@ -123,11 +203,11 @@ root.protocol('WM_DELETE_WINDOW', root.quit())
 button = tk.Button(frame, text="QUIT", fg="red", command=quit)
 button.pack(side=tk.LEFT)
 
-eye_button = tk.Button(frame, text="Eyes", fg="red", command=eye_color)
+eye_button = tk.Button(frame, text="React to Movement", fg="red", command=random_reaction)
 eye_button.pack(side=tk.LEFT)
 
-sound_button = tk.Button(frame, text="Bring Attention", fg="red", command=make_sound)
-sound_button.pack(side=tk.LEFT)
+sound_button = tk.Button(frame, text="Make Sound", fg="red", command=make_sound)
+sound_button.pack(side=tk.RIGHT)
 
 gaze_following_button = tk.Button(frame, text="Gaze Follow", fg="blue", command=gaze_follow)
 gaze_following_button.pack(side=tk.LEFT)
@@ -152,11 +232,13 @@ def rightKey(event):
 
 def upKey(event):
     print "Up key pressed"
-    moveHead("HeadPitch", "up", 0.2, 2)
+    # moveHead("HeadPitch", "up", 0.2, 2)
+    changeAngles("HeadPitch", -0.15)
 
 def downKey(event):
     print "Down key pressed"
-    moveHead("HeadPitch", "down", 0.2, 2)
+    changeAngles("HeadPitch", 0.15)
+    # moveHead("HeadPitch", "down", 0.2, 2)
 
 root.bind('<Left>', leftKey)
 root.bind('<Right>', rightKey)
@@ -177,3 +259,10 @@ def get_behaviours():
     for i in allItems:
         print i
 
+def turnoff_autonomous():
+
+    alBehaviorManagerProxy = ALProxy("ALBasicAwareness", IP_ADDRESS, 9559)
+    alBehaviorManagerProxy.stopAwareness()
+     
+    # alBehaviorManagerProxy = ALProxy("ALAutonomousMoves", IP_ADDRESS, 9559)
+    # alBehaviorManagerProxy.setExpressiveListeningEnabled(False)

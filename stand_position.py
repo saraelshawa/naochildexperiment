@@ -8,4 +8,4 @@ def stand_position():
         print "Could not create proxy to ALRobotPosture"
         print "Error was: ",
 
-    postureProxy.goToPosture("Stand", 0.5)
+    postureProxy.goToPosture("Stand", 0.1)
