@@ -153,7 +153,6 @@ def gaze_follow():
 def dance():
     stand_position()
     managerProxy = ALProxy("ALBehaviorManager", IP_ADDRESS, 9559)
-    # managerProxy.runBehavior("gangnamstyle1234-91e48b/GangnamStyle")
     managerProxy.runBehavior('gangnamstyle4-9610b3/GangnamStyle')
     
 
