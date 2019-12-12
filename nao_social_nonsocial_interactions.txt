@@ -1,0 +1,59 @@
+http://doc.aldebaran.com/2-4/naoqi/motion/alanimationplayer-advanced.html#animationplayer-list-behaviors-nao
+
+ non-social:
+
+managerProxy.runBehavior("animations/Stand/Gestures/Thinking_5")
+
+managerProxy.runBehavior("animations/Stand/Gestures/CountFive_1")
+
+managerProxy.runBehavior("animations/Stand/Waiting/ScratchBottom_1")
+
+managerProxy.runBehavior("animations/Stand/Waiting/ScratchLeg_1")
+
+managerProxy.runBehavior("animations/Stand/Waiting/ScratchTorso_1")
+
+managerProxy.runBehavior("animations/Stand/Waiting/Waddle_1") -- looking down 
+
+
+
+In [14]: managerProxy.runBehavior("animations/Stand/Gestures/ShowFloor_1")
+
+social:
+
+managerProxy.runBehavior("animations/Stand/Gestures/Kisses_1")
+
+managerProxy.runBehavior("animations/Stand/Gestures/ComeOn_1")
+
+
+scratching leg ----- wave hand
+scratching butt ----- bowing maybe
+scratching torso ----- me 2 
+thinking ----- give 
+count 5 -------- peekaboo or 
+waddling ---- come on 
+
+
+managerProxy.runBehavior("animations/Stand/Waiting/HideEyes_1")   ------ peek a boo 
+
+
+managerProxy.runBehavior("animations/Stand/Gestures/BowShort_1")
+
+managerProxy.runBehavior("animations/Stand/Gestures/Give_1")
+
+managerProxy.runBehavior("animations/Stand/Gestures/WhatSThis_1")
+
+
+managerProxy.runBehavior("animations/Stand/Gestures/Me_2")
+
+managerProxy.runBehavior("animations/Stand/Gestures/ComeOn_1")
+
+In [23]: managerProxy.runBehavior("animations/Stand/Gestures/Follow_1")
+
+
+
+
+
+other:
+managerProxy.runBehavior("animations/Stand/Waiting/Headbang_1")
+
+managerProxy.runBehavior("animations/Stand/Gestures/Shoot_1")
