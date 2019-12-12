@@ -125,9 +125,6 @@ def move_head_diagonal(angle_up_down, angle_left_right):
 gazeFollowInteration = GazeFollowInteraction()
 def gaze_follow():
     stand_position()
-
-    angle = 0.04
-
     next_move = gazeFollowInteration.get_next_move()
     if next_move == GazeFollowInteraction.LEFT_HEAD_MOVE:
         move_head_diagonal(0.04, 0.04)
