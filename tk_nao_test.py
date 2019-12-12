@@ -13,17 +13,10 @@ from gangam_style import gangam_style_position, gangam_style_dance
 from stand_position import stand_position
 from sounds import sound_1, sound_2, sound_3
 
-# def fun():
-	# tts = ALProxy("ALTextToSpeech", "169.254.124.254", 9559)
-	# tts.say("Hi, Sho!")
 
 alBehaviorManagerProxy = ALProxy("ALBasicAwareness", IP_ADDRESS, 9559)
 alBehaviorManagerProxy.stopAwareness()	
 
-
-
-# AutonomousBlinking = ALProxy("ALAutonomousBlinking", IP_ADDRESS, 9559)
-# AutonomousBlinking.setEnabled()
 
 def quit():
     global root
@@ -38,7 +31,6 @@ def eye_color():
     # Example showing how to fade the eyes to green 
     stand_position()
     name = 'FaceLeds'
-    # intensity = 0.5
     # duration = 2.0
     # leds_service.fadeRGB(name, "green", duration)
     leds_service.rasta(2)
@@ -69,7 +61,6 @@ def moveHead(type, direction, angle, time_end):
 
 
 def make_sound():
-    #to do 
     stand_position()
     x = random.choice([0, 1, 2])
     print("x is " + str(x))
@@ -80,7 +71,7 @@ def make_sound():
     if x == 2:
         return sound_3()
     # leds_service = ALProxy("ALLeds", IP_ADDRESS, 9559)
-    # leds_service.rasta(1)
+
 
 def move_head_diagonal(angle_up_down, angle_left_right):
 
@@ -154,9 +145,7 @@ def dance():
     stand_position()
     managerProxy = ALProxy("ALBehaviorManager", IP_ADDRESS, 9559)
     managerProxy.runBehavior('gangnamstyle4-9610b3/GangnamStyle')
-    
 
-    # time.sleep(5)
 
 def hand_wave_func():
     stand_position()
@@ -220,14 +209,12 @@ wave_hand_button.pack(side=tk.LEFT)
 
 def leftKey(event):
     print "Left key pressed"
-    # moveHead("HeadYaw", "left", 0.2, 2)
     changeAngles("HeadYaw", 0.3)
 
 
 def rightKey(event):
     print "Right key pressed"
     changeAngles("HeadYaw", -0.3)
-    # moveHead("HeadYaw", "right", 0.2, 2)
 
 def upKey(event):
     print "Up key pressed"
@@ -237,7 +224,6 @@ def upKey(event):
 def downKey(event):
     print "Down key pressed"
     changeAngles("HeadPitch", 0.15)
-    # moveHead("HeadPitch", "down", 0.2, 2)
 
 root.bind('<Left>', leftKey)
 root.bind('<Right>', rightKey)
