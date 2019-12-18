@@ -31,8 +31,6 @@ def eye_color():
     # Example showing how to fade the eyes to green 
     stand_position()
     name = 'FaceLeds'
-    # duration = 2.0
-    # leds_service.fadeRGB(name, "green", duration)
     leds_service.rasta(2)
 
 
@@ -49,6 +47,7 @@ def moveHead(type, direction, angle, time_end):
         print(angleLists, timeLists)
         isAbsolute  = True
         motionProxy.angleInterpolation(["HeadYaw"], angleLists, timeLists, isAbsolute)
+    
     #up or down 
     if type == "HeadPitch":
         if direction == "up":
@@ -70,7 +69,6 @@ def make_sound():
         return sound_2()
     if x == 2:
         return sound_3()
-    # leds_service = ALProxy("ALLeds", IP_ADDRESS, 9559)
 
 
 def move_head_diagonal(angle_up_down, angle_left_right):
@@ -81,51 +79,6 @@ def move_head_diagonal(angle_up_down, angle_left_right):
     isAbsolute  = True
     motionProxy.angleInterpolation(["HeadPitch", "HeadYaw"], angleLists, timeLists, isAbsolute)
    
-   
-    # changeAngles("HeadPitch", angle_up_down)
-    # changeAngles("HeadYaw", angle_left_right)
-    # changeAngles("HeadPitch", angle_up_down)
-    # changeAngles("HeadYaw", angle_left_right)
-    # changeAngles("HeadPitch", angle_up_down)
-    # changeAngles("HeadYaw", angle_left_right)
-    # changeAngles("HeadPitch", angle_up_down)
-    # changeAngles("HeadYaw", angle_left_right)
-    # changeAngles("HeadPitch", angle_up_down)
-    # changeAngles("HeadYaw", angle_left_right)
-    # changeAngles("HeadPitch", angle_up_down)
-    # changeAngles("HeadYaw", angle_left_right)
-    # changeAngles("HeadPitch", angle_up_down)
-    # changeAngles("HeadYaw", angle_left_right)
-    # changeAngles("HeadPitch", angle_up_down)
-    # changeAngles("HeadYaw", angle_left_right)
-    # changeAngles("HeadPitch", angle_up_down)
-    # changeAngles("HeadYaw", angle_left_right)
-    # changeAngles("HeadPitch", angle_up_down)
-    # changeAngles("HeadYaw", angle_left_right)
-    # changeAngles("HeadPitch", angle_up_down)
-    # changeAngles("HeadYaw", angle_left_right)
-    # changeAngles("HeadPitch", angle_up_down)
-    # changeAngles("HeadYaw", angle_left_right)
-    # changeAngles("HeadPitch", angle_up_down)
-    # changeAngles("HeadYaw", angle_left_right)
-    # changeAngles("HeadPitch", angle_up_down)
-    # changeAngles("HeadYaw", angle_left_right)
-    # changeAngles("HeadPitch", angle_up_down)
-    # changeAngles("HeadYaw", angle_left_right)
-    # changeAngles("HeadPitch", angle_up_down)
-    # changeAngles("HeadYaw", angle_left_right)
-    # changeAngles("HeadPitch", angle_up_down)
-    # changeAngles("HeadYaw", angle_left_right)
-    # changeAngles("HeadPitch", angle_up_down)
-    # changeAngles("HeadYaw", angle_left_right)
-    # changeAngles("HeadPitch", angle_up_down)
-    # changeAngles("HeadYaw", angle_left_right)
-    # changeAngles("HeadPitch", angle_up_down)
-    # changeAngles("HeadYaw", angle_left_right)
-    # changeAngles("HeadPitch", angle_up_down)
-    # changeAngles("HeadYaw", angle_left_right)
-    # changeAngles("HeadPitch", angle_up_down)
-
 
 
 
@@ -135,7 +88,6 @@ def gaze_follow():
     next_move = gazeFollowInteration.get_next_move()
     if next_move == GazeFollowInteraction.LEFT_HEAD_MOVE:
         move_head_diagonal(0.45, 0.45)
-        # moveHead("HeadYaw", "left", 0.1, 1)
     elif next_move == GazeFollowInteraction.RIGHT_HEAD_MOVE:
         move_head_diagonal(0.45, -0.45)
     
@@ -159,10 +111,11 @@ def hand_wave_func():
     # tts = ALProxy("ALAnimationPlayer", IP_ADDRESS, 9559)
     # tts.run("animations/Stand/Gestures/Hey_1!")
 
-def you_func():
+def come_on_func():
     stand_position()
     managerProxy = ALProxy("ALBehaviorManager", IP_ADDRESS, 9559)
-    managerProxy.runBehavior("animations/Stand/Gestures/You_4")
+
+    managerProxy.runBehavior("animations/Stand/Gestures/ComeOn_1")
 
 
 def changeAngles(name, add_angle):
@@ -172,7 +125,6 @@ def changeAngles(name, add_angle):
     
     new_pos = [commandAngle[0] + add_angle]
     motionProxy.angleInterpolationWithSpeed([name], new_pos, 0.1)
-    # motionProxy.setStiffnesses("Body", 1.0)
 
 def random_reaction():
     x = random.choice([0, 1, 2])
@@ -182,7 +134,7 @@ def random_reaction():
     if x == 1: 
         return eye_color()
     if x == 2: 
-        return you_func()
+        return come_on_func()
 
 
 root = tk.Tk()
@@ -190,7 +142,6 @@ root.geometry("500x500")
 frame = tk.Frame(root)
 frame.pack()
 root.protocol('WM_DELETE_WINDOW', root.quit())
-
 
 
 button = tk.Button(frame, text="QUIT", fg="red", command=quit)
@@ -234,7 +185,6 @@ root.bind('<Left>', leftKey)
 root.bind('<Right>', rightKey)
 root.bind('<Up>', upKey)
 root.bind('<Down>', downKey)
-
 
 root.mainloop()
 
