@@ -4,8 +4,11 @@ from sys import exit
 import qi
 import time
 from settings import IP_ADDRESS
+from settings import MOVEMENT_MAPPINGS_FILE_PATH
+from settings import PORT
 from blink import blink 
 import random 
+import json
 
 from GazeFollowInteraction import GazeFollowInteraction
 from hand_wave import hand_wave
@@ -14,7 +17,12 @@ from stand_position import stand_position
 from sounds import sound_1, sound_2, sound_3
 
 
-alBehaviorManagerProxy = ALProxy("ALBasicAwareness", IP_ADDRESS, 9559)
+
+with open(MOVEMENET_MAPPINGS_FILE_PATH) as f:
+  movement_mappings_dict = json.load(f)
+# print(movement_mappings_dict.keys())
+
+alBehaviorManagerProxy = ALProxy("ALBasicAwareness", IP_ADDRESS, PORT)
 alBehaviorManagerProxy.stopAwareness()	
 
 
@@ -35,7 +43,7 @@ def eye_color():
 
 
 def moveHead(type, direction, angle, time_end):
-    motionProxy = ALProxy("ALMotion", IP_ADDRESS, 9559)
+    motionProxy = ALProxy("ALMotion", IP_ADDRESS, PORT)
 
     #left or right
     if type == "HeadYaw":
@@ -72,7 +80,7 @@ def make_sound():
 
 
 def move_head_diagonal(angle_up_down, angle_left_right):
-    motionProxy = ALProxy("ALMotion", IP_ADDRESS, 9559)
+    motionProxy = ALProxy("ALMotion", IP_ADDRESS, PORT)
 
     angleLists = [angle_up_down, angle_left_right]
     timeLists = [1,1]
@@ -100,26 +108,26 @@ def gaze_follow():
 
 def dance():
     stand_position()
-    managerProxy = ALProxy("ALBehaviorManager", IP_ADDRESS, 9559)
+    managerProxy = ALProxy("ALBehaviorManager", IP_ADDRESS, PORT)
     managerProxy.runBehavior('gangnamstyle4-9610b3/GangnamStyle')
 
 
 def hand_wave_func():
     stand_position()
-    managerProxy = ALProxy("ALBehaviorManager", IP_ADDRESS, 9559)
+    managerProxy = ALProxy("ALBehaviorManager", IP_ADDRESS, PORT)
     managerProxy.runBehavior("animations/Stand/Gestures/Hey_1")
     # tts = ALProxy("ALAnimationPlayer", IP_ADDRESS, 9559)
     # tts.run("animations/Stand/Gestures/Hey_1!")
 
 def come_on_func():
     stand_position()
-    managerProxy = ALProxy("ALBehaviorManager", IP_ADDRESS, 9559)
+    managerProxy = ALProxy("ALBehaviorManager", IP_ADDRESS, PORT)
 
     managerProxy.runBehavior("animations/Stand/Gestures/ComeOn_1")
 
 
 def changeAngles(name, add_angle):
-    motionProxy = ALProxy("ALMotion", IP_ADDRESS, 9559)
+    motionProxy = ALProxy("ALMotion", IP_ADDRESS, PORT)
     useSensors    = True
     commandAngle = motionProxy.getAngles(name, useSensors)
     
@@ -189,7 +197,7 @@ root.bind('<Down>', downKey)
 root.mainloop()
 
 def get_behaviours():
-    alBehaviorManagerProxy = ALProxy("ALBehaviorManager", IP_ADDRESS, 9559)
+    alBehaviorManagerProxy = ALProxy("ALBehaviorManager", IP_ADDRESS, PORT)
     names = alBehaviorManagerProxy.getInstalledBehaviors()
     print "Behaviours installed on the robot:"
     print names
@@ -201,8 +209,8 @@ def get_behaviours():
 
 def turnoff_autonomous():
 
-    alBehaviorManagerProxy = ALProxy("ALBasicAwareness", IP_ADDRESS, 9559)
+    alBehaviorManagerProxy = ALProxy("ALBasicAwareness", IP_ADDRESS, PORT)
     alBehaviorManagerProxy.stopAwareness()
      
-    # alBehaviorManagerProxy = ALProxy("ALAutonomousMoves", IP_ADDRESS, 9559)
+    # alBehaviorManagerProxy = ALProxy("ALAutonomousMoves", IP_ADDRESS, PORT)
     # alBehaviorManagerProxy.setExpressiveListeningEnabled(False)
