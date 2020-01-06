@@ -15,6 +15,7 @@ class ExampleApp(tk.Tk):
         if self.remaining >= 100:
             self.label.configure(text="time's up!")
         else:
+            
             # self.label.configure(text="Timer: %d" % self.remaining)
             self.label.configure(text="Timer: %s" % time.strftime('%M:%S', time.gmtime(remaining)))
             print(time.gmtime(self.remaining))
