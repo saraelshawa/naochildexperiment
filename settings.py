@@ -1,1 +1,3 @@
 IP_ADDRESS = "169.254.124.254"
+MOVEMENT_MAPPINGS_FILE_PATH = "./movement_mappings.json"
+PORT = "9559"
