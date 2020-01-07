@@ -1,5 +1,6 @@
 import Tkinter  as tk
 from StartPage import StartPage
+from Timer import TimerApp
 
 class MainApp(tk.Tk):
     def __init__(self):
