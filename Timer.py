@@ -1,27 +1,67 @@
 import Tkinter as tk
-import time 
-class ExampleApp(tk.Tk):
-    def __init__(self):
+import time
+# https://stackoverflow.com/questions/45551179/how-do-i-implement-start-stop-and-reset-features-on-a-tkinter-countdown-timer
+
+class TimerApp(tk.Tk):
+    def __init__(self, limit):
         tk.Tk.__init__(self)
+        self.paused = False
+        self.limit = limit
+        self.current = 0
+
+        self.createWidgets()
+        self.countdown(0)
+    
+    def createWidgets(self):
         self.label = tk.Label(self, text="", width=10)
         self.label.pack()
-        self.remaining = 0
-        self.countdown(60)
 
-    def countdown(self, remaining = None):
-        if remaining is not None:
-            self.remaining = remaining
+        self.start_button = tk.Button(self, text="RESUME", fg="red", command=self.startTime)
+        self.start_button.pack()
+        
+        self.pause_button = tk.Button(self, text="PAUSE", fg="red", command=self.pauseTime)
+        self.pause_button.pack()
+        
+        self.reset_button = tk.Button(self, text="RESET", fg="red", command=self.resetTime)
+        self.reset_button.pack()
+        
+    def startTime(self):
+        #Resume Time
+        print("resume button clicked")
+        self.paused = False
+        self.countdown(self.current)
 
-        if self.remaining >= 100:
+    
+    def pauseTime(self):
+        print("pause button clicked")
+        self.paused = True
+
+    def resetTime(self):
+        print("reset button clicked")
+        self.paused = True
+        self.current = 0
+        self.countdown(0)
+        
+
+    def countdown(self, current = None):
+        if current is not None:
+            self.current = current
+
+        if self.paused:
+            print("paused")
+            self.label.configure(text="Paused: %s" % time.strftime('%M:%S', time.gmtime(self.current)))
+            return
+
+        if self.current >= self.limit:
             self.label.configure(text="time's up!")
+            return 
+
         else:
-            
-            # self.label.configure(text="Timer: %d" % self.remaining)
-            self.label.configure(text="Timer: %s" % time.strftime('%M:%S', time.gmtime(remaining)))
-            print(time.gmtime(self.remaining))
-            self.remaining = self.remaining + 1
+            self.label.configure(text="Timer: %s" % time.strftime('%M:%S', time.gmtime(self.current)))
+            print(time.gmtime(self.current))
+            self.current = self.current + 1
             self.after(1000, self.countdown)
 
 if __name__ == "__main__":
-    app = ExampleApp()
+    app = TimerApp(5)
     app.mainloop()
