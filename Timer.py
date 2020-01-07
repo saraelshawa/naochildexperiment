@@ -63,7 +63,7 @@ class TimerApp(tk.Frame):
 
         else:
             self.label.configure(text="Timer: %s" % time.strftime('%M:%S', time.gmtime(self.current)))
-            print(time.gmtime(self.current))
+            # print(time.gmtime(self.current))
             self.current = self.current + 1
             self.after(1000, self.countdown)
 
