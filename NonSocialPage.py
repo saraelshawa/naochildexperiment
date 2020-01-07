@@ -16,6 +16,8 @@ class NonSocialPage(tk.Frame):
         inputValue=self.textBox.get("1.0", "end-1c")
         print(inputValue)
 
+    # self.after(1000, self.countdown)
+
 
 
 
