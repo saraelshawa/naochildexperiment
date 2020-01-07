@@ -2,13 +2,13 @@ import Tkinter as tk
 import time
 # https://stackoverflow.com/questions/45551179/how-do-i-implement-start-stop-and-reset-features-on-a-tkinter-countdown-timer
 
-class TimerApp(tk.Tk):
-    def __init__(self, limit):
-        tk.Tk.__init__(self)
+class TimerApp(tk.Frame):
+    def __init__(self, limit, onEnd, master=None, **kw):
+        tk.Frame.__init__(self, master=master, **kw)
         self.paused = False
         self.limit = limit
         self.current = 0
-
+        self.onEnd = onEnd
         self.createWidgets()
         self.countdown(0)
     
@@ -41,6 +41,9 @@ class TimerApp(tk.Tk):
         self.paused = True
         self.current = 0
         self.countdown(0)
+
+    def returnCurrentTime(self):
+        return self.current
         
 
     def countdown(self, current = None):
@@ -54,6 +57,8 @@ class TimerApp(tk.Tk):
 
         if self.current >= self.limit:
             self.label.configure(text="time's up!")
+            print("calling gaze following")
+            self.onEnd()
             return 
 
         else:
@@ -62,6 +67,6 @@ class TimerApp(tk.Tk):
             self.current = self.current + 1
             self.after(1000, self.countdown)
 
-if __name__ == "__main__":
-    app = TimerApp(5)
-    app.mainloop()
+# if __name__ == "__main__":
+#     app = TimerApp(5)
+#     app.mainloop()
