@@ -1,9 +1,22 @@
 import Tkinter  as tk
 from Timer import TimerApp
+from naoqi import ALProxy    
+import qi
 from GazeFollowPage import GazeFollowPage
+from settings import IP_ADDRESS
+from settings import PORT
+from settings import MOVEMENT_MAPPINGS_FILE_PATH
+from settings import TIME_IN_MINUTES
 import time
 from sounds import sound_1, sound_2, sound_3
 import random 
+import json
+
+
+
+
+# alBehaviorManagerProxy = ALProxy("ALBasicAwareness", IP_ADDRESS, PORT)
+# alBehaviorManagerProxy.stopAwareness()
 
 class SocialPage(tk.Frame):
     def __init__(self, master, **kw):
@@ -11,9 +24,11 @@ class SocialPage(tk.Frame):
         self.f = open("examplefile.txt", "a+")
         tk.Frame.__init__(self, master, **kw)
         tk.Frame.configure(self,bg='lightblue')
-        self.timer = TimerApp(20, self.onEnd, master=self) #not master so that when social page gets destroyed by switch frames, it goes as well. 
+        self.timer = TimerApp(TIME_IN_MINUTES*60, self.onEnd, master=self) #not master so that when social page gets destroyed by switch frames, it goes as well. 
         self.timer.pack()
         self.createWidgets()
+        with open(MOVEMENT_MAPPINGS_FILE_PATH) as f:
+                self.movement_mappings_dict = json.load(f)
 
     def createWidgets(self):
         self.label = tk.Label(self, text="Social Page", font=('Helvetica', 18, "bold"))
@@ -29,7 +44,17 @@ class SocialPage(tk.Frame):
         self.wave_button.pack()
 
     def react_movement(self):
-        self.writeToFile("movement")
+        # stand_position()
+
+        # self.writeToFile()
+        print(self.movement_mappings_dict.keys())
+        movement = random.choice(list(self.movement_mappings_dict.keys()))
+        self.writeToFile(movement)
+        print("random movement: " + str(movement))
+        managerProxy = ALProxy("ALBehaviorManager", IP_ADDRESS, PORT)
+        managerProxy.runBehavior("animations/Stand/Gestures/" + str(movement))
+
+        #get random key random.choice(list(d.keys()))
 
     def make_sound(self):
         print("in make sound")
