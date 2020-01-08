@@ -18,12 +18,12 @@ from sounds import sound_1, sound_2, sound_3
 
 
 
-with open(MOVEMENET_MAPPINGS_FILE_PATH) as f:
+with open(MOVEMENT_MAPPINGS_FILE_PATH) as f:
   movement_mappings_dict = json.load(f)
 # print(movement_mappings_dict.keys())
 
-alBehaviorManagerProxy = ALProxy("ALBasicAwareness", IP_ADDRESS, PORT)
-alBehaviorManagerProxy.stopAwareness()	
+# alBehaviorManagerProxy = ALProxy("ALBasicAwareness", IP_ADDRESS, PORT)
+# alBehaviorManagerProxy.stopAwareness()	
 
 
 def quit():
