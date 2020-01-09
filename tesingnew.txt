@@ -1,0 +1,11 @@
+animations/Stand/Gestures/Hey_1 6
+sound_0 11
+animations/Stand/Gestures/Me_2 18
+left 25
+right 27
+down 30
+animations/Stand/Gestures/Hey_1 34
+right 40
+left 47
+sound_0 53
+animations/Stand/Gestures/Hey_1 55
