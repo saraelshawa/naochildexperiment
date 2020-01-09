@@ -5,6 +5,7 @@ from NonSocialPage import NonSocialPage
 from settings import IP_ADDRESS
 from settings import PORT
 import time 
+import json
 
 class StartPage(tk.Frame):
     def __init__(self, master):
@@ -15,16 +16,18 @@ class StartPage(tk.Frame):
         tk.Button(self, text="Non-Social",
                   command=lambda: master.switch_frame(NonSocialPage)).pack()
         tk.Button(self, text="Dance", command=self.dance).pack()
+
+        # self.textBox = tk.Text(self, height=2, width=10)
+        # self.textBox.pack()
+
+        # tk.Button(self, text="Input file name", command=lambda: self.input_file()).pack()
+    
+    # def input_file(self):
+    #     FILE_NAME = self.textBox.get("1.0", "end-1c")
+    #     print(FILE_NAME)
+    #     print("exit")
     
     def dance(self):
-
-        # aup = ALProxy("ALAudioPlayer", IP_ADDRESS, PORT)
-        # aup.playFile("/naoqi/nao_japanese_song.wav")
-        # fileId = aup.post.playFile("/home/sara/repos/naochildexperiment/nao_japanese_song.mp3")
-        # aup.play(fileId)
-        # ap.loadSoundSet("Aldebaran")
-        # fileId = ap.post.playSoundSetFile("filename")
-
         managerProxy = ALProxy("ALBehaviorManager", IP_ADDRESS, PORT)
         managerProxy.startBehavior('untitled-690f7b/japanese_song')
 
@@ -41,11 +44,6 @@ class StartPage(tk.Frame):
         managerProxy.runBehavior("animations/Stand/Gestures/Wings_2")
         managerProxy.runBehavior('animations/Stand/Gestures/ShowSky_4')
         
-        
-
-        
-        # time.sleep()
+        time.sleep(4)
         managerProxy.stopAllBehaviors()
-        # aup = ALProxy("ALAudioPlayer", IP_ADDRESS, PORT)
-        # fileId = aup.loadFile("/home/sara/repos/naochildexperiment/nao_japanese_song.mp3")
-        # aup.play(fileId)
+    
