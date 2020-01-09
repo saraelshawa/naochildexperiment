@@ -12,6 +12,7 @@ from sounds import sound_1, sound_2, sound_3
 import random 
 import json
 from stand_position import stand_position
+from settings import FILE_NAME
 
 
 
@@ -22,7 +23,7 @@ alBehaviorManagerProxy.stopAwareness()
 class SocialPage(tk.Frame):
     def __init__(self, master, **kw):
         self.master = master
-        self.f = open("examplefile.txt", "a+")
+        self.f = open(FILE_NAME, "a+")
         tk.Frame.__init__(self, master, **kw)
         tk.Frame.configure(self,bg='lightblue')
         self.timer = TimerApp(TIME_IN_MINUTES*60, self.onEnd, master=self) #not master so that when social page gets destroyed by switch frames, it goes as well. 
@@ -41,8 +42,24 @@ class SocialPage(tk.Frame):
         self.movement_button = tk.Button(self, text="React to Movement", command=self.react_movement)
         self.movement_button.pack()
 
-        self.wave_button = tk.Button(self, text="Wave hand", command=self.timer.returnCurrentTime)
-        self.wave_button.pack()
+        self.peekaboo_button = tk.Button(self, text="Peekaboo", command=self.peekaboo)
+        self.peekaboo_button.pack()
+
+        self.wave_button = tk.Button(self, text="Wave Hand", command=self.wave)
+        self.wave_button.pack() 
+
+    def wave(self):
+        managerProxy = ALProxy("ALBehaviorManager", IP_ADDRESS, PORT)
+
+        managerProxy.runBehavior("animations/Stand/Gestures/Hey_1") 
+        self.writeToFile("animations/Stand/Gestures/Hey_1")
+
+    def peekaboo(self):
+        managerProxy = ALProxy("ALBehaviorManager", IP_ADDRESS, PORT)
+
+        managerProxy.runBehavior("animations/Stand/Waiting/HideEyes_1") 
+        self.writeToFile("animations/Stand/Waiting/HideEyes_1")
+
 
     def react_movement(self):
         # stand_position()
