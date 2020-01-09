@@ -4,7 +4,9 @@ from Timer import TimerApp
 from settings import IP_ADDRESS
 from settings import PORT
 from naoqi import ALProxy
+from stand_position import stand_position
 
+stand_position()
 class MainApp(tk.Tk):
     def __init__(self):
         tk.Tk.__init__(self)
