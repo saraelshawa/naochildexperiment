@@ -11,12 +11,13 @@ import time
 from sounds import sound_1, sound_2, sound_3
 import random 
 import json
+from stand_position import stand_position
 
 
 
 
-# alBehaviorManagerProxy = ALProxy("ALBasicAwareness", IP_ADDRESS, PORT)
-# alBehaviorManagerProxy.stopAwareness()
+alBehaviorManagerProxy = ALProxy("ALBasicAwareness", IP_ADDRESS, PORT)
+alBehaviorManagerProxy.stopAwareness()
 
 class SocialPage(tk.Frame):
     def __init__(self, master, **kw):
@@ -58,10 +59,17 @@ class SocialPage(tk.Frame):
 
     def make_sound(self):
         print("in make sound")
-        # stand_position()
+        stand_position()
         x = random.choice([0, 1, 2])
         print("x is " + str(x))
-        self.writeToFile("sound_1")
+        self.writeToFile("sound_" + str(x))
+        if x == 0:
+            return sound_1()
+        if x == 1: 
+            return sound_2()
+        if x == 2:
+            return sound_3()
+
         
     def onEnd(self):
         tk.Label(self, text="Switching to Gaze Follow", font=('Helvetica', 18, "bold")).pack(side="top", fill="x", pady=5)
