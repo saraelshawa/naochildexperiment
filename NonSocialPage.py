@@ -5,7 +5,10 @@ from settings import PORT
 from naoqi import ALProxy
 import json
 from settings import MOVEMENT_MAPPINGS_FILE_PATH
-
+from sounds import sound_1, sound_2, sound_3
+from stand_position import stand_position
+from GazeFollowPage import GazeFollowPage
+import time
 
 class NonSocialPage(tk.Frame):
 
@@ -27,24 +30,39 @@ class NonSocialPage(tk.Frame):
 
         log = open(str(inputValue), "r")
         for line in log:
-            time = int(line.split(" ")[1])
+            timex = int(line.split(" ")[1])
             behavior = str(line.split(" ")[0])
-            print(time)
+            print(timex)
             print(behavior)
-            timer = threading.Timer(int(time), self.run, [str(behavior)]) 
+            timer = threading.Timer(int(timex), self.run, [str(behavior)]) 
             timer.start() 
-
+        print("this is timex" + str(timex))
+        time.sleep(timex+10)
         print("Exit\n")
+        self.onEnd()
+
+    def onEnd(self):
+        tk.Label(self, text="Switching to Gaze Follow", font=('Helvetica', 18, "bold")).pack(side="top", fill="x", pady=5)
+        time.sleep(2)
+        self.master.switch_frame(GazeFollowPage)
 
 
 
     def run(self, behaviour):
         #if behavior starts with sound 
-        # if "sound" in str(behaviour):
+        stand_position()
+        if "sound" in str(behaviour):
+            if "1" in behaviour:
+                return sound_1()
+            if "2" in behaviour:
+                return sound_2()
+            if "3" in behaviour:
+                return sound_3()
 
         #else
-        managerProxy = ALProxy("ALBehaviorManager", IP_ADDRESS, PORT)
-        managerProxy.runBehavior(str(self.movement_mappings_dict[behaviour]))
+        else:
+            managerProxy = ALProxy("ALBehaviorManager", IP_ADDRESS, PORT)
+            managerProxy.runBehavior(str(self.movement_mappings_dict[behaviour]))
 # 
 
 
