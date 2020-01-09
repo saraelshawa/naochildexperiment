@@ -2,6 +2,7 @@
 "animations/Stand/Gestures/Hey_1":  "animations/Stand/Waiting/ScratchLeg_1",
 "animations/Stand/Gestures/BowShort_1": "animations/Stand/Waiting/ScratchBottom_1",
 "animations/Stand/Gestures/ComeOn_1": "animations/Stand/Waiting/Waddle_1",
-"animations/Stand/Gestures/Me_2": "animations/Stand/Waiting/ScratchTorso_1"
+"animations/Stand/Gestures/Me_2": "animations/Stand/Waiting/ScratchTorso_1", 
+"animations/Stand/Waiting/HideEyes_1": "animations/Stand/Gestures/CountFive_1"
 }
 
