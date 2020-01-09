@@ -58,11 +58,47 @@ class NonSocialPage(tk.Frame):
                 return sound_2()
             if "3" in behaviour:
                 return sound_3()
-
+        elif "left" in str(behaviour):
+            print("randomly calling left")
+            return self.leftKey()
+        elif "right" in str(behaviour):
+            print("randomly calling right")
+            return self.rightKey()
+        elif "up" in str(behaviour):
+            print("randomly calling up")
+            return self.upKey()
+        elif "down" in str(behaviour):
+            print("randomly calling down")
+            return self.downKey()
         #else
         else:
             managerProxy = ALProxy("ALBehaviorManager", IP_ADDRESS, PORT)
             managerProxy.runBehavior(str(self.movement_mappings_dict[behaviour]))
 # 
+    def leftKey(self):
+        print "Left key pressed"
+        self.changeAngles("HeadYaw", 0.3)
 
+    def rightKey(self):
+        print "Right key pressed"
+        self.changeAngles("HeadYaw", -0.3)
+
+
+    def upKey(self):
+        print "Up key pressed"
+        # moveHead("HeadPitch", "up", 0.2, 2)
+        self.changeAngles("HeadPitch", -0.15)
+
+    def downKey(self):
+        print "Down key pressed"
+        self.changeAngles("HeadPitch", 0.15)
+
+
+    def changeAngles(self, name, add_angle):
+        motionProxy = ALProxy("ALMotion", IP_ADDRESS, PORT)
+        useSensors    = True
+        commandAngle = motionProxy.getAngles(name, useSensors)
+        
+        new_pos = [commandAngle[0] + add_angle]
+        motionProxy.angleInterpolationWithSpeed([name], new_pos, 0.1)
 
