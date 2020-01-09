@@ -13,7 +13,7 @@ import random
 import json
 from stand_position import stand_position
 from settings import FILE_NAME
-
+from stand_position import stand_position
 
 
 
@@ -23,7 +23,7 @@ alBehaviorManagerProxy.stopAwareness()
 class SocialPage(tk.Frame):
     def __init__(self, master, **kw):
         self.master = master
-        self.f = open(FILE_NAME, "a+")
+        self.f = open("tesingnew.txt", "a+")
         tk.Frame.__init__(self, master, **kw)
         tk.Frame.configure(self,bg='lightblue')
         self.timer = TimerApp(TIME_IN_MINUTES*60, self.onEnd, master=self) #not master so that when social page gets destroyed by switch frames, it goes as well. 
@@ -48,13 +48,34 @@ class SocialPage(tk.Frame):
         self.wave_button = tk.Button(self, text="Wave Hand", command=self.wave)
         self.wave_button.pack() 
 
+        self.left_button = tk.Button(self, text="Left ", command=self.leftKey)
+        self.left_button.pack() 
+
+        self.right_button = tk.Button(self, text="Right ", command=self.rightKey)
+        self.right_button.pack() 
+
+        self.up_button = tk.Button(self, text="Up ", command=self.upKey)
+        self.up_button.pack() 
+
+
+        self.down_button = tk.Button(self, text="Down", command=self.downKey)
+        self.down_button.pack() 
+
+        # self.bind('<Left>', self.leftKey)
+        # self.bind('<Right>', self.rightKey)
+        # self.bind('<Up>', self.upKey)
+        # self.bind('<Down>', self.downKey)
+
+
     def wave(self):
+        stand_position()
         managerProxy = ALProxy("ALBehaviorManager", IP_ADDRESS, PORT)
 
         managerProxy.runBehavior("animations/Stand/Gestures/Hey_1") 
         self.writeToFile("animations/Stand/Gestures/Hey_1")
 
     def peekaboo(self):
+        stand_position()
         managerProxy = ALProxy("ALBehaviorManager", IP_ADDRESS, PORT)
 
         managerProxy.runBehavior("animations/Stand/Waiting/HideEyes_1") 
@@ -62,7 +83,7 @@ class SocialPage(tk.Frame):
 
 
     def react_movement(self):
-        # stand_position()
+        stand_position()
 
         # self.writeToFile()
         print(self.movement_mappings_dict.keys())
@@ -75,6 +96,7 @@ class SocialPage(tk.Frame):
         #get random key random.choice(list(d.keys()))
 
     def make_sound(self):
+        stand_position()
         print("in make sound")
         stand_position()
         x = random.choice([0, 1, 2])
@@ -96,3 +118,36 @@ class SocialPage(tk.Frame):
     def writeToFile(self, movement):
         print("in write to file")
         self.f.write('%s %s\r\n' % (movement, self.timer.current))
+    
+    def leftKey(self):
+        print "Left key pressed"
+        self.writeToFile('left')
+
+        self.changeAngles("HeadYaw", 0.3)
+        
+    def rightKey(self):
+        print "Right key pressed"
+        self.writeToFile('right')
+
+        self.changeAngles("HeadYaw", -0.3)
+
+
+    def upKey(self):
+        print "Up key pressed"
+        self.writeToFile('up')
+        self.changeAngles("HeadPitch", -0.15)
+
+
+    def downKey(self):
+        print "Down key pressed"
+        self.writeToFile('down')
+        self.changeAngles("HeadPitch", 0.15)
+
+
+    def changeAngles(self, name, add_angle):
+        motionProxy = ALProxy("ALMotion", IP_ADDRESS, PORT)
+        useSensors    = True
+        commandAngle = motionProxy.getAngles(name, useSensors)
+        
+        new_pos = [commandAngle[0] + add_angle]
+        motionProxy.angleInterpolationWithSpeed([name], new_pos, 0.1)
