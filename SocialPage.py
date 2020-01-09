@@ -53,7 +53,7 @@ class SocialPage(tk.Frame):
         self.writeToFile(movement)
         print("random movement: " + str(movement))
         managerProxy = ALProxy("ALBehaviorManager", IP_ADDRESS, PORT)
-        managerProxy.runBehavior("animations/Stand/Gestures/" + str(movement))
+        managerProxy.runBehavior(str(movement))
 
         #get random key random.choice(list(d.keys()))
 
