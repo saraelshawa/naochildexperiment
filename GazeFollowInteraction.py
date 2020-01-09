@@ -16,7 +16,7 @@ class GazeFollowInteraction:
         if self.curr_mov == len(self.rand_movements):
             #print 6/6
             print "6/6 done"
-            return  
+            return "6/6 done"
             # self._reset()
         curr_mov = self.rand_movements[self.curr_mov]
         self.curr_mov += 1

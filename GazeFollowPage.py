@@ -5,6 +5,7 @@ import time
 from stand_position import stand_position
 from settings import IP_ADDRESS
 from settings import PORT
+import tkMessageBox
 
 class GazeFollowPage(tk.Frame):
     def x(self):
@@ -28,6 +29,9 @@ class GazeFollowPage(tk.Frame):
         elif next_move == GazeFollowInteraction.RIGHT_HEAD_MOVE:
             self.move_head_diagonal(0.45, -0.45)
         
+        elif next_move == "6/6 done":
+            print("alll doneee")
+            tkMessageBox.showinfo("End of Experiment", "6/6 gaze following done")
         #hold for 5 seconds
         time.sleep(5)
         stand_position()
