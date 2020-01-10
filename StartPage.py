@@ -17,16 +17,7 @@ class StartPage(tk.Frame):
                   command=lambda: master.switch_frame(NonSocialPage)).pack()
         tk.Button(self, text="Dance", command=self.dance).pack()
 
-        # self.textBox = tk.Text(self, height=2, width=10)
-        # self.textBox.pack()
 
-        # tk.Button(self, text="Input file name", command=lambda: self.input_file()).pack()
-    
-    # def input_file(self):
-    #     FILE_NAME = self.textBox.get("1.0", "end-1c")
-    #     print(FILE_NAME)
-    #     print("exit")
-    
     def dance(self):
         managerProxy = ALProxy("ALBehaviorManager", IP_ADDRESS, PORT)
         managerProxy.startBehavior('untitled-690f7b/japanese_song')
@@ -46,4 +37,15 @@ class StartPage(tk.Frame):
         
         time.sleep(4)
         managerProxy.stopAllBehaviors()
+    
+
+        # self.textBox = tk.Text(self, height=2, width=10)
+        # self.textBox.pack()
+
+        # tk.Button(self, text="Input file name", command=lambda: self.input_file()).pack()
+    
+    # def input_file(self):
+    #     FILE_NAME = self.textBox.get("1.0", "end-1c")
+    #     print(FILE_NAME)
+    #     print("exit")
     
