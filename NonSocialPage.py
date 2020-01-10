@@ -23,7 +23,8 @@ class NonSocialPage(tk.Frame):
                 self.movement_mappings_dict = json.load(f)
 
         tk.Button(self, text="Retrieve input", command=lambda: self.retrieve_input()).pack()
-    
+        tk.Button(self, text="Gaze Follow Page", command=lambda: self.onEnd()).pack()
+
     def retrieve_input(self):
         inputValue=self.textBox.get("1.0", "end-1c")
         print(inputValue)
