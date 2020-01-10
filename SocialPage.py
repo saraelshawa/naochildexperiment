@@ -23,7 +23,7 @@ alBehaviorManagerProxy.stopAwareness()
 class SocialPage(tk.Frame):
     def __init__(self, master, **kw):
         self.master = master
-        self.f = open("tesingnew.txt", "a+")
+        self.f = open("pilotexperiment_jan10.txt", "a+")
         tk.Frame.__init__(self, master, **kw)
         tk.Frame.configure(self,bg='lightblue')
         self.timer = TimerApp(TIME_IN_MINUTES*60, self.onEnd, master=self) #not master so that when social page gets destroyed by switch frames, it goes as well. 
