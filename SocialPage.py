@@ -14,8 +14,7 @@ import json
 from stand_position import stand_position
 from settings import FILE_NAME
 from stand_position import stand_position
-
-
+import tkSimpleDialog as simpledialog
 
 alBehaviorManagerProxy = ALProxy("ALBasicAwareness", IP_ADDRESS, PORT)
 alBehaviorManagerProxy.stopAwareness()
@@ -23,7 +22,6 @@ alBehaviorManagerProxy.stopAwareness()
 class SocialPage(tk.Frame):
     def __init__(self, master, **kw):
         self.master = master
-        self.f = open("pilotexperiment_jan10.txt", "a+")
         tk.Frame.__init__(self, master, **kw)
         tk.Frame.configure(self,bg='lightblue')
         self.timer = TimerApp(TIME_IN_MINUTES*60, self.onEnd, master=self) #not master so that when social page gets destroyed by switch frames, it goes as well. 
@@ -57,9 +55,34 @@ class SocialPage(tk.Frame):
         self.up_button = tk.Button(self, text="Up ", command=self.upKey)
         self.up_button.pack() 
 
-
         self.down_button = tk.Button(self, text="Down", command=self.downKey)
         self.down_button.pack() 
+
+        self.age = simpledialog.askstring("Input", "Age?",
+                                parent=self)
+        if self.age is not None:
+            print("Age is ", self.age)
+        else:
+            print("Age was not inputted")
+
+        self.gender = simpledialog.askstring("Input", "Gender?",
+                                parent=self)
+        if self.gender is not None:
+            print("Gender is ", self.gender)
+        else:
+            print("Gender was not inputted")
+        
+        self.number = simpledialog.askstring("Input", "Experiment number?",
+                                parent=self)
+        if self.number is not None:
+            print("Experiment number is ", self.number)
+        else:
+            print("Experiment number was not inputted")
+        
+
+        self.name_of_file = "./data/" + self.number + "_" + self.age + "_" + self.gender
+        self.f = open(self.name_of_file, "w")
+
 
         # self.bind('<Left>', self.leftKey)
         # self.bind('<Right>', self.rightKey)
