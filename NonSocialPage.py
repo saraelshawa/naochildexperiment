@@ -29,7 +29,7 @@ class NonSocialPage(tk.Frame):
         inputValue=self.textBox.get("1.0", "end-1c")
         print(inputValue)
 
-        log = open(str(inputValue), "r")
+        log = open("./data/" + str(inputValue), "r")
         for line in log:
             timex = int(line.split(" ")[1])
             behavior = str(line.split(" ")[0])
