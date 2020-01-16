@@ -10,7 +10,7 @@ def sound_2():
     print("in 2")
 
     tts = ALProxy("ALTextToSpeech", IP_ADDRESS, 9559)
-    tts.say("Hey!")
+    tts.say("Eee!")
 
 def sound_3():
     tts = ALProxy("ALTextToSpeech", IP_ADDRESS, 9559)
