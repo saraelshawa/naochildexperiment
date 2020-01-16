@@ -9,6 +9,8 @@ from sounds import sound_1, sound_2, sound_3
 from stand_position import stand_position
 from GazeFollowPage import GazeFollowPage
 import time
+import tkSimpleDialog as simpledialog
+
 
 class NonSocialPage(tk.Frame):
 
@@ -24,19 +26,49 @@ class NonSocialPage(tk.Frame):
 
         tk.Button(self, text="Retrieve input", command=lambda: self.retrieve_input()).pack()
         tk.Button(self, text="Gaze Follow Page", command=lambda: self.onEnd()).pack()
+  
+        self.number = simpledialog.askstring("Input", "Participant number?",
+                                parent=self)
+
+        if self.number is not None:
+            print("Experiment number is ", self.number)
+        else:
+            print("Experiment number was not inputted")
+
+        self.age = simpledialog.askstring("Input", "Age?",
+                                parent=self)
+        if self.age is not None:
+            print("Age is ", self.age)
+        else:
+            print("Age was not inputted")
+
+        self.gender = simpledialog.askstring("Input", "Gender?",
+                                parent=self)
+        if self.gender is not None:
+            print("Gender is ", self.gender)
+        else:
+            print("Gender was not inputted")
+        
+
+
+        self.name_of_file = "./data/nonsocial_" + self.number + "_" + self.age + "_" + self.gender 
+
 
     def retrieve_input(self):
         inputValue=self.textBox.get("1.0", "end-1c")
         print(inputValue)
+        self.name_of_file += "_for_" + inputValue
+        self.f = open(self.name_of_file, "w")
 
         log = open("./data/" + str(inputValue), "r")
         for line in log:
             timex = int(line.split(" ")[1])
-            behavior = str(line.split(" ")[0])
+            behaviour = str(line.split(" ")[0])
             print(timex)
-            print(behavior)
-            timer = threading.Timer(int(timex), self.run, [str(behavior)]) 
+            print(behaviour)
+            timer = threading.Timer(int(timex), self.run, [str(behaviour)]) 
             timer.start() 
+            self.writeToFile(behaviour, timex)
         print("this is timex" + str(timex))
         time.sleep(timex+10)
         print("Exit\n")
@@ -47,7 +79,13 @@ class NonSocialPage(tk.Frame):
         time.sleep(2)
         self.master.switch_frame(GazeFollowPage)
 
-
+    def writeToFile(self, behaviour, timex):
+        print("in write to file")
+        if "/" in behaviour:
+            print(behaviour)
+            behaviour = self.movement_mappings_dict[behaviour]
+        print(behaviour, timex)
+        self.f.write('%s %s\r\n' % (behaviour, timex))
 
     def run(self, behaviour):
         #if behavior starts with sound 
@@ -75,7 +113,7 @@ class NonSocialPage(tk.Frame):
         else:
             managerProxy = ALProxy("ALBehaviorManager", IP_ADDRESS, PORT)
             managerProxy.runBehavior(str(self.movement_mappings_dict[behaviour]))
-# 
+
     def leftKey(self):
         print "Left key pressed"
         self.changeAngles("HeadYaw", 0.3)
