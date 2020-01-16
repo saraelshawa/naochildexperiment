@@ -7,6 +7,9 @@ from settings import IP_ADDRESS
 from settings import PORT
 import tkMessageBox
 
+
+#start with a jingle then gaze follow 
+#maybe random jingle every time 
 class GazeFollowPage(tk.Frame):
     def x(self):
         return
