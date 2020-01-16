@@ -19,6 +19,10 @@ import tkSimpleDialog as simpledialog
 alBehaviorManagerProxy = ALProxy("ALBasicAwareness", IP_ADDRESS, PORT)
 alBehaviorManagerProxy.stopAwareness()
 
+
+
+#wave hand is to start
+#peekaboo is to grab attention if the baby isn't doing anything 
 class SocialPage(tk.Frame):
     def __init__(self, master, **kw):
         self.master = master
@@ -58,6 +62,13 @@ class SocialPage(tk.Frame):
         self.down_button = tk.Button(self, text="Down", command=self.downKey)
         self.down_button.pack() 
 
+        self.number = simpledialog.askstring("Input", "Participant number?",
+                                parent=self)
+        if self.number is not None:
+            print("Experiment number is ", self.number)
+        else:
+            print("Experiment number was not inputted")
+
         self.age = simpledialog.askstring("Input", "Age?",
                                 parent=self)
         if self.age is not None:
@@ -72,15 +83,10 @@ class SocialPage(tk.Frame):
         else:
             print("Gender was not inputted")
         
-        self.number = simpledialog.askstring("Input", "Experiment number?",
-                                parent=self)
-        if self.number is not None:
-            print("Experiment number is ", self.number)
-        else:
-            print("Experiment number was not inputted")
+
         
 
-        self.name_of_file = "./data/" + self.number + "_" + self.age + "_" + self.gender
+        self.name_of_file = "./data/social_" + self.number + "_" + self.age + "_" + self.gender + ".txt"
         self.f = open(self.name_of_file, "w")
 
 
