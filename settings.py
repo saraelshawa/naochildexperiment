@@ -1,5 +1,5 @@
 IP_ADDRESS = "169.254.124.254"
 PORT = 9559
 MOVEMENT_MAPPINGS_FILE_PATH = "./movement_mappings.json"
-TIME_IN_MINUTES = 2
+TIME_IN_MINUTES = 0.25
 FILE_NAME = "testing.txt"
