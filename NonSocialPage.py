@@ -15,8 +15,10 @@ import tkSimpleDialog as simpledialog
 class NonSocialPage(tk.Frame):
 
     def __init__(self, master):
-        tk.Frame.__init__(self, master)
-        tk.Frame.configure(self,bg='red')
+        tk.Frame.__init__(self, master, width=500, height=500)
+        # tk.Frame.configure(self,bg='red')
+        self.pack_propagate(False)
+
         tk.Label(self, text="Non social page", font=('Helvetica', 18, "bold")).pack(side="top", fill="x", pady=5)
         self.textBox = tk.Text(self, height=2, width=10)
         self.textBox.pack()
