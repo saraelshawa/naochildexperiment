@@ -1,6 +1,0 @@
-animations/Stand/Gestures/Hey_1 0
-animations/Stand/Gestures/Me_2 0
-sound_0 0
-sound_2 0
-sound_2 0
-sound_1 0
