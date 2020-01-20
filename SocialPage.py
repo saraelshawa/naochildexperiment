@@ -15,6 +15,7 @@ from stand_position import stand_position
 from settings import FILE_NAME
 from stand_position import stand_position
 import tkSimpleDialog as simpledialog
+from PIL import ImageTk, Image
 
 alBehaviorManagerProxy = ALProxy("ALBasicAwareness", IP_ADDRESS, PORT)
 alBehaviorManagerProxy.stopAwareness()
@@ -54,16 +55,25 @@ class SocialPage(tk.Frame):
 
 
         self.left_button = tk.Button(self, text="Left ", command=self.leftKey)
-        self.left_button.pack() 
+        self.left_photo = ImageTk.PhotoImage(file="./pictures/keyboard_key_left.png")
+        self.left_button.config(image=self.left_photo, width="32", height="32")
+        self.left_button.pack(side='left') 
 
         self.right_button = tk.Button(self, text="Right ", command=self.rightKey)
-        self.right_button.pack() 
+        self.right_photo = ImageTk.PhotoImage(file="./pictures/keyboard_key_right.png")
+        self.right_button.config(image=self.right_photo, width="32", height="32")
+        self.right_button.pack(side='left')
+        
 
         self.up_button = tk.Button(self, text="Up ", command=self.upKey)
-        self.up_button.pack() 
+        self.up_photo = ImageTk.PhotoImage(file="./pictures/keyboard_key_up.png")
+        self.up_button.config(image=self.up_photo, width="32", height="32")
+        self.up_button.pack(side='left')
 
         self.down_button = tk.Button(self, text="Down", command=self.downKey)
-        self.down_button.pack() 
+        self.down_photo = ImageTk.PhotoImage(file="./pictures/keyboard_key_down.png")
+        self.down_button.config(image=self.down_photo, width="32", height="32")
+        self.down_button.pack(side='left')
 
         self.number = simpledialog.askstring("Input", "Participant number?",
                                 parent=self)
