@@ -13,12 +13,19 @@ class StartPage(tk.Frame):
         self.pack_propagate(False)
         
         tk.Label(self, text="Main page", font=('Helvetica', 18, "bold")).pack(side="top", fill="x", pady=5)
-        tk.Button(self, text="Social",
-                  command=lambda: master.switch_frame(SocialPage)).pack()
-        tk.Button(self, text="Non-Social",
-                  command=lambda: master.switch_frame(NonSocialPage)).pack()
-        tk.Button(self, text="Dance", command=self.dance).pack()
+        social_button = tk.Button(self, text="Social",
+                  command=lambda: master.switch_frame(SocialPage))
+        social_button.pack(side='left')
+        social_button.config( height = 10, width = 10)
+        
+        nonsocial_button = tk.Button(self, text="Non-Social",
+                  command=lambda: master.switch_frame(NonSocialPage))
+        nonsocial_button.pack(side='right')
+        nonsocial_button.config( height = 10, width = 10)
 
+        dance_button = tk.Button(self, text="Dance", command=self.dance)
+        dance_button.pack(side='top')
+        dance_button.config( height = 3, width = 10)
 
     def dance(self):
         managerProxy = ALProxy("ALBehaviorManager", IP_ADDRESS, PORT)
