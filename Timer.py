@@ -4,7 +4,7 @@ import time
 
 class TimerApp(tk.Frame):
     def __init__(self, limit, onEnd, master=None, **kw):
-        tk.Frame.__init__(self, master=master, **kw)
+        tk.Frame.__init__(self, master=master, width=100, height=100, **kw)
         self.paused = True
         self.limit = limit
         self.current = 0
@@ -13,17 +13,25 @@ class TimerApp(tk.Frame):
         self.countdown(0)
     
     def createWidgets(self):
-        self.label = tk.Label(self, text="", width=10)
+        self.label = tk.Label(self, text="")
         self.label.pack()
-
-        self.start_button = tk.Button(self, text="START/RESUME", fg="red", command=self.startTime)
+        self.label.place(x=0, y=5)
+        #must be n, ne, e, se, s, sw, w, nw, or center
+        self.start_button = tk.Button(self, text="START", fg="red", command=self.startTime)
         self.start_button.pack()
+        self.start_button.place(x=0, y=20)
+        # self.start_button.pack(side = 'left')
         
         self.pause_button = tk.Button(self, text="PAUSE", fg="red", command=self.pauseTime)
         self.pause_button.pack()
-        
+        self.pause_button.place(x=0, y=44)
+
+        # self.pause_button.pack(side='bottom')
+
         self.reset_button = tk.Button(self, text="RESET", fg="red", command=self.resetTime)
         self.reset_button.pack()
+        self.reset_button.place(x=0, y=70)
+
         
     def startTime(self):
         #Resume Time
