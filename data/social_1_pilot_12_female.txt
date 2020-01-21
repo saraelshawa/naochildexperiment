@@ -1,0 +1,17 @@
+animations/Stand/Gestures/Hey_1 0
+animations/Stand/Gestures/Hey_1 4
+animations/Stand/Gestures/ComeOn_1 16
+animations/Stand/Gestures/Me_2 20
+sound_1 29
+animations/Stand/Waiting/HideEyes_1 38
+animations/Stand/Gestures/Hey_1 39
+animations/Stand/Waiting/HideEyes_1 50
+sound_1 55
+sound_2 62
+animations/Stand/Gestures/ComeOn_1 64
+animations/Stand/Waiting/HideEyes_1 72
+animations/Stand/Gestures/Hey_1 78
+animations/Stand/Gestures/Me_2 87
+animations/Stand/Gestures/Me_2 99
+animations/Stand/Gestures/Hey_1 103
+animations/Stand/Gestures/Me_2 120

@@ -7,6 +7,7 @@ from settings import PORT
 import time 
 import json
 
+
 class StartPage(tk.Frame):
     def __init__(self, master):
         tk.Frame.__init__(self, master, width=500, height=500)
@@ -17,7 +18,7 @@ class StartPage(tk.Frame):
                   command=lambda: master.switch_frame(SocialPage))
         social_button.pack(side='left')
         social_button.config( height = 10, width = 10)
-        
+        # social_button.grid(row = 0, column =3)
         nonsocial_button = tk.Button(self, text="Non-Social",
                   command=lambda: master.switch_frame(NonSocialPage))
         nonsocial_button.pack(side='right')
