@@ -29,15 +29,15 @@ class SocialPage(tk.Frame):
         self.master = master
         tk.Frame.__init__(self, master, width=500, height=500)
         self.pack_propagate(False)
-        # tk.Frame.configure(self, bg='red')
         self.timer = TimerApp(TIME_IN_MINUTES*60, self.onEnd, master=self) #not master so that when social page gets destroyed by switch frames, it goes as well. 
         self.timer.pack()
+        self.timer.place(x= 0, y=0)
         self.createWidgets()
         with open(MOVEMENT_MAPPINGS_FILE_PATH) as f:
                 self.movement_mappings_dict = json.load(f)
 
     def createWidgets(self):
-        self.label = tk.Label(self, text="Social Page", font=('Helvetica', 18, "normal"))
+        self.label = tk.Label(self, text="Social Page", width=10, font=('Helvetica', 18, "normal"))
         self.label.pack()
         
         self.wave_button = tk.Button(self, text="Wave Hand", command=self.wave)
