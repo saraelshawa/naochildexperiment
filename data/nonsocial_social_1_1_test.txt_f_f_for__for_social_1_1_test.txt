@@ -1,0 +1,2 @@
+animations/Stand/Waiting/ScratchTorso_1 20
+animations/Stand/Waiting/ScratchTorso_1 30

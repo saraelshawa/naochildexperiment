@@ -1,0 +1,2 @@
+animations/Stand/Gestures/Me_2 20
+animations/Stand/Gestures/Me_2 30

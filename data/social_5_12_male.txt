@@ -1,0 +1,10 @@
+animations/Stand/Gestures/Hey_1 3
+animations/Stand/Waiting/HideEyes_1 13
+sound_1 23
+sound_1 30
+animations/Stand/Waiting/HideEyes_1 37
+sound_1 48
+animations/Stand/Gestures/Hey_1 58
+sound_1 77
+sound_1 85
+sound_0 96

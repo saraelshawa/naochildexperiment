@@ -1,0 +1,10 @@
+animations/Stand/Waiting/ScratchLeg_1 2
+sound_1 9
+sound_2 24
+sound_0 29
+animations/Stand/Gestures/CountFive_1 33
+animations/Stand/Waiting/ScratchBottom_1 38
+animations/Stand/Waiting/Waddle_1 46
+animations/Stand/Waiting/ScratchTorso_1 54
+animations/Stand/Waiting/ScratchLeg_1 62
+animations/Stand/Gestures/CountFive_1 65
