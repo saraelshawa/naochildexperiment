@@ -75,6 +75,19 @@ class SocialPage(tk.Frame):
         self.down_button.config(image=self.down_photo, width="32", height="32")
         self.down_button.pack(side='left')
 
+        self.input_button = tk.Button(self, text="Input Parameters", command=self.input)
+        self.input_button.pack()
+
+
+
+
+        # self.bind('<Left>', self.leftKey)
+        # self.bind('<Right>', self.rightKey)
+        # self.bind('<Up>', self.upKey)
+        # self.bind('<Down>', self.downKey)
+
+    def input(self):
+
         self.number = simpledialog.askstring("Input", "Participant number?",
                                 parent=self)
         if self.number is not None:
@@ -96,19 +109,8 @@ class SocialPage(tk.Frame):
         else:
             print("Gender was not inputted")
         
-
-        
-
         self.name_of_file = "./data/social_" + self.number + "_" + self.age + "_" + self.gender + ".txt"
         self.f = open(self.name_of_file, "w")
-
-
-        # self.bind('<Left>', self.leftKey)
-        # self.bind('<Right>', self.rightKey)
-        # self.bind('<Up>', self.upKey)
-        # self.bind('<Down>', self.downKey)
-
-
     def wave(self):
         stand_position()
         managerProxy = ALProxy("ALBehaviorManager", IP_ADDRESS, PORT)
