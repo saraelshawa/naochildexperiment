@@ -45,8 +45,10 @@ class StartPage(tk.Frame):
         managerProxy.runBehavior("animations/Stand/Gestures/Wings_2")
         managerProxy.runBehavior('animations/Stand/Gestures/ShowSky_4')
         managerProxy.runBehavior("animations/Stand/Gestures/You_2")
-        
-        time.sleep(5)
+        managerProxy.runBehavior("animations/Stand/Gestures/Wings_2")
+        managerProxy.runBehavior('animations/Stand/Gestures/Kisses_1')
+
+        time.sleep(14)
         managerProxy.stopAllBehaviors()
     
 
