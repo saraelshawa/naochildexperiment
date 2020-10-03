@@ -21,7 +21,6 @@ alBehaviorManagerProxy = ALProxy("ALBasicAwareness", IP_ADDRESS, PORT)
 alBehaviorManagerProxy.stopAwareness()
 
 
-
 #wave hand is to start
 #peekaboo is to grab attention if the baby isn't doing anything 
 class SocialPage(tk.Frame):
@@ -29,7 +28,7 @@ class SocialPage(tk.Frame):
         self.master = master
         tk.Frame.__init__(self, master, width=500, height=500)
         self.pack_propagate(False)
-        self.timer = TimerApp(TIME_IN_MINUTES*60, self.onEnd, master=self) #not master so that when social page gets destroyed by switch frames, it goes as well. 
+        self.timer = TimerApp(TIME_IN_MINUTES*60, self.onEnd, master=self) 
         self.timer.pack()
         self.timer.place(x= 0, y=0)
         self.createWidgets()
@@ -80,12 +79,6 @@ class SocialPage(tk.Frame):
 
 
 
-
-        # self.bind('<Left>', self.leftKey)
-        # self.bind('<Right>', self.rightKey)
-        # self.bind('<Up>', self.upKey)
-        # self.bind('<Down>', self.downKey)
-
     def input(self):
 
         self.number = simpledialog.askstring("Input", "Participant number?",
@@ -111,6 +104,7 @@ class SocialPage(tk.Frame):
         
         self.name_of_file = "./data/social_" + self.number + "_" + self.age + "_" + self.gender + ".txt"
         self.f = open(self.name_of_file, "w")
+    
     def wave(self):
         stand_position()
         managerProxy = ALProxy("ALBehaviorManager", IP_ADDRESS, PORT)
@@ -128,8 +122,6 @@ class SocialPage(tk.Frame):
 
     def react_movement(self):
         stand_position()
-
-        # self.writeToFile()
         print(self.movement_mappings_dict.keys())
         movement = random.choice(list(self.movement_mappings_dict.keys()))
         self.writeToFile(movement)
@@ -137,7 +129,6 @@ class SocialPage(tk.Frame):
         managerProxy = ALProxy("ALBehaviorManager", IP_ADDRESS, PORT)
         managerProxy.runBehavior(str(movement))
 
-        #get random key random.choice(list(d.keys()))
 
     def make_sound(self):
         stand_position()
@@ -166,13 +157,11 @@ class SocialPage(tk.Frame):
     def leftKey(self):
         print "Left key pressed"
         self.writeToFile('left')
-
         self.changeAngles("HeadYaw", 0.3)
         
     def rightKey(self):
         print "Right key pressed"
         self.writeToFile('right')
-
         self.changeAngles("HeadYaw", -0.3)
 
 

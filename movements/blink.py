@@ -2,8 +2,9 @@
 from naoqi import ALProxy
 import time
 from settings import IP_ADDRESS
+from settings import PORT
 def blink():
-    leds = ALProxy("ALLeds", IP_ADDRESS, 9559)
+    leds = ALProxy("ALLeds", IP_ADDRESS, PORT)
     rDuration = 0.05
     leds.post.fadeRGB( "FaceLed0", 0x000000, rDuration )
     leds.post.fadeRGB( "FaceLed1", 0x000000, rDuration )

@@ -1,4 +1,0 @@
-animations/Stand/Waiting/HideEyes_1 4
-animations/Stand/Waiting/HideEyes_1 6
-animations/Stand/Gestures/Hey_1 12
-animations/Stand/Waiting/HideEyes_1 13

@@ -7,11 +7,12 @@ import operator
 import numpy as np
 import cv2
 import csv
-
 import pathlib2
 import os
 import datetime
 import time
+from settings import IP_ADDRESS
+from settings import PORT
 
 import matplotlib.pyplot as plt
 
@@ -22,7 +23,7 @@ pathlib2.Path(save_dir).mkdir(parents=True, exist_ok=True)
 NAO_IP = "169.254.124.254"
 PORT = 9559
 
-motionProxy = ALProxy("ALMotion", NAO_IP, PORT)
+motionProxy = ALProxy("ALMotion", IP_ADDRESS, PORT)
 
 
 
@@ -69,9 +70,6 @@ for k in range(time_steps):
     ################################################################### Save CSV
 
 
-# f = open(os.path.join(save_dir, 'nao_data.csv'), 'w')
-# writer = csv.writer(f, lineterminator='\n')
-# writer.writerows(csv_2darray)
 
 
 

@@ -20,7 +20,6 @@ class GazeFollowPage(tk.Frame):
         tk.Frame.__init__(self, master, width=500, height=500)
         self.pack_propagate(False)
 
-        # tk.Frame.configure(self,bg='lightblue')
         tk.Label(self, text="Gaze Follow Page", font=('Helvetica', 18, "bold")).pack(side="top", fill="x", pady=5)
         gaze_following_button = tk.Button(self, text="Gaze Follow", fg="blue", command=self.gaze_follow)
         gaze_following_button.pack(side=tk.LEFT)
@@ -43,7 +42,7 @@ class GazeFollowPage(tk.Frame):
             self.move_head_diagonal(0.45, -0.45)
         
         elif next_move == "6/6 done":
-            print("alll doneee")
+            print("all done")
             tkMessageBox.showinfo("End of Experiment", "6/6 gaze following done")
         #hold for 5 seconds
         time.sleep(5)
@@ -74,5 +73,3 @@ class GazeFollowPage(tk.Frame):
 
         managerProxy.runBehavior('untitled-c05a30/game_win_sound') #grab attention 
 
-
-        # 'untitled-1fb4c9/ding-ding', 'untitled-e2cddf/game_fail_sound', 'untitled-c05a30/game_win_sound', 'untitled-dabbc5/sleigh_bell_sound'

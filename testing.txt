@@ -1,2 +1,0 @@
-sound_1 13
-animations/Stand/Gestures/Hey_1 15
